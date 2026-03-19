@@ -148,61 +148,6 @@ def main():
         remove_columns=raw_eval.column_names   
     )
 
-
-    # def preprocess_alpaca(examples):
-    #     """
-    #     解析 Alpaca 格式数据，硬编码转换为 Qwen ChatML 格式
-    #     """
-    #     input_ids_list, labels_list = [], []
-        
-    #     # 遍历批次中的 instruction, input 和 output
-    #     for instruction, input_text, output_text in zip(examples["instruction"], examples["input"], examples["output"]):
-    #         input_ids, labels = [], []
-            
-    #         # 1. 组装并插入 System Prompt
-    #         sys_prompt = "<|im_start|>system\nYou are a professional medical assistant.<|im_end|>\n"
-    #         sys_ids = tokenizer.encode(sys_prompt, add_special_tokens=False)
-    #         input_ids.extend(sys_ids)
-    #         labels.extend([IGNORE_INDEX] * len(sys_ids))
-
-    #         # 2. 组装并插入 User Prompt
-    #         user_content = f"{instruction}\n\n{input_text}" if input_text else instruction
-    #         user_prompt = f"<|im_start|>user\n{user_content}<|im_end|>\n"
-    #         user_ids = tokenizer.encode(user_prompt, add_special_tokens=False)
-    #         input_ids.extend(user_ids)
-    #         labels.extend([IGNORE_INDEX] * len(user_ids))
-            
-    #         # 3. 组装并插入 Assistant 回答 (保留真实的 Labels 用于计算 Loss)
-    #         assistant_prompt = f"<|im_start|>assistant\n{output_text}<|im_end|>\n"
-    #         assistant_ids = tokenizer.encode(assistant_prompt, add_special_tokens=False)
-    #         input_ids.extend(assistant_ids)
-    #         labels.extend(assistant_ids)
-
-    #         # 4. 截断处理
-    #         if len(input_ids) > script_args.max_seq_length:
-    #             input_ids = input_ids[:script_args.max_seq_length]
-    #             labels = labels[:script_args.max_seq_length]
-
-    #         input_ids_list.append(input_ids)
-    #         labels_list.append(labels)
-    #     return {"input_ids": input_ids_list, "labels": labels_list}
-
-
-    # print("⏳ 正在解析 Alpaca 数据集 (硬编码 ChatML 格式)...")
-    # tokenized_train = raw_train.map(
-    #     preprocess_alpaca, 
-    #     batched=True, 
-    #     remove_columns=raw_train.column_names,
-    #     desc="Tokenizing Alpaca"
-    # )
-
-    # tokenized_eval = raw_eval.map(
-    #     preprocess_alpaca,
-    #     batched=True,
-    #     remove_columns=raw_eval.column_names   
-    # )
-
-
     # ================= Load Model =================
     model = AutoModelForCausalLM.from_pretrained(
         script_args.model_name_or_path,
