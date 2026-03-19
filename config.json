@@ -1,0 +1,25 @@
+{
+  "model_name_or_path": "./models/qwen0.5b",
+  "data_path": "./data/train_en_1_sharegpt.jsonl",
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "lora_dropout": 0.05,
+  "warmup_steps": 0.03,
+  "weight_decay": 0.01,
+  "max_seq_length": 512,
+  "max_train_samples": 200,
+
+  "output_dir": "./outputs/output_lora",
+  "per_device_train_batch_size": 1,
+  "gradient_accumulation_steps": 1,
+  "learning_rate": 2e-5,
+  "num_train_epochs": 1,
+  "logging_steps": 10,
+  "save_strategy": "epoch",
+  "eval_strategy": "steps",
+  "eval_steps": 20,
+  "logging_first_step": true,
+  "bf16": true,
+  "gradient_checkpointing": true,
+  "optim": "paged_adamw_32bit"
+}
